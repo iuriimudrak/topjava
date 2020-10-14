@@ -23,7 +23,7 @@ public class InMemoryUserRepository implements UserRepository {
     private final AtomicInteger counter = new AtomicInteger(0);
 
     {
-        UsersUtil.users.forEach(this::save);
+        UsersUtil.USERS.forEach(this::save);
     }
 
     @Override
