@@ -10,10 +10,10 @@
 <section>
     <form method="post" action="users">
         <spring:message code="app.login"/>: <select name="userId">
-        <option value="100000" selected>User</option>
-        <option value="100001">Admin</option>
+        <option value="100000" selected><spring:message code="role.user"/></option>
+        <option value="100001"><spring:message code="role.admin"/></option>
     </select>
-        <button type="submit"><spring:message code="common.select"/></button>
+        <button type="submit"><spring:message code="common.button.select"/></button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
