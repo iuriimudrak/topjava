@@ -26,6 +26,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Autowired
     protected UserService service;
 
+    @Autowired
     @Lazy
     protected JpaUtil jpaUtil;
 
@@ -53,6 +54,26 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    public void createWithRoles() {
+        User createdWithRoles = service.create(getNewWithRoles());
+        int newId = createdWithRoles.id();
+        User newUserWithRoles = getNewWithRoles();
+        newUserWithRoles.setId(newId);
+        USER_MATCHER.assertMatch(createdWithRoles, newUserWithRoles);
+        USER_MATCHER.assertMatch(service.get(newId), newUserWithRoles);
+    }
+
+    @Test
+    public void createWithOutRoles() {
+        User createdWithOutRoles = service.create(getNewWithoutRoles());
+        int newId = createdWithOutRoles.id();
+        User newUserWithOutRoles = getNewWithoutRoles();
+        newUserWithOutRoles.setId(newId);
+        USER_MATCHER.assertMatch(createdWithOutRoles, newUserWithOutRoles);
+        USER_MATCHER.assertMatch(service.get(newId), newUserWithOutRoles);
+    }
+
+    @Test
     public void duplicateMailCreate() {
         assertThrows(DataAccessException.class, () ->
                 service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.USER)));
@@ -62,6 +83,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     public void delete() {
         service.delete(USER_ID);
         assertThrows(NotFoundException.class, () -> service.get(USER_ID));
+    }
+
+    @Test
+    public void updateWithDeletedRoles() {
+        User updatedWithDeletedRoles = getUpdatedWithDeletedRoles();
+        service.update(updatedWithDeletedRoles);
+        USER_MATCHER.assertMatch(service.get(USER_ID), getUpdatedWithDeletedRoles());
     }
 
     @Test
