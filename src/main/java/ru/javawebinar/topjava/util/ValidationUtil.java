@@ -3,6 +3,9 @@ package ru.javawebinar.topjava.util;
 import ru.javawebinar.topjava.model.AbstractBaseEntity;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import javax.validation.*;
+import java.util.Set;
+
 public class ValidationUtil {
     private ValidationUtil() {
     }
