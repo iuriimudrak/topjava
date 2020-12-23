@@ -14,6 +14,7 @@ function makeEditable() {
 
     // solve problem with cache in IE: https://stackoverflow.com/a/4303862/548473
     $.ajaxSetup({cache: false});
+    updateTable();
 }
 
 function add() {
@@ -32,7 +33,7 @@ function deleteRow(id) {
 }
 
 function updateTable() {
-    $.get(ctx.ajaxUrl, function (data) {
+    ctx.done(function (data) {
         ctx.datatableApi.clear().rows.add(data).draw();
     });
 }
