@@ -54,4 +54,8 @@ public class UserTestData {
     public static String jsonWithPassword(User user, String passw) {
         return JsonUtil.writeAdditionProps(user, "password", passw);
     }
+
+    public static User getNotValidNew() {
+        return new User(null, "New", "", "newPass", 1555, false, new Date(), Collections.singleton(Role.USER));
+    }
 }
